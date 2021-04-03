@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --port 6006",
+    "start": "ng serve --port 6006",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "eslint .",
     "e2e": "ng e2e",
     "postinstall": "ngcc"
   },
