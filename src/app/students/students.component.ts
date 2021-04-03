@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-students',
@@ -7,6 +7,6 @@ import { Component, OnInit } from '@angular/core'
 })
 export class StudentsComponent implements OnInit {
   ngOnInit (): void {
-
+    const bula = 'test';
   }
 }

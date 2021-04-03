@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-student.component.css']
 })
 export class EditStudentComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit (): void {
+    const bula = 'test';
+    const i = 'test2';
   }
-
 }
