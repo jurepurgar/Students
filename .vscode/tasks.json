@@ -3,9 +3,9 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "start",
-			"problemMatcher": [],
-			"label": "start",
+			"script": "build",
+			"problemMatcher": ["$tsc-watch"],
+			"label": "build",
 			"detail": "ng serve  --port 6006",
       "isBackground": true,
 		}
