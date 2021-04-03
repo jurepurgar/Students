@@ -5,11 +5,11 @@ import { StudentsComponent } from './students/students.component'
 
 const routes: Routes = [
   {
-    path: '/',
+    path: '',
     component: StudentsComponent
   },
   {
-    path: '/edit/',
+    path: 'edit/:id',
     component: EditStudentComponent
   }
 ]
