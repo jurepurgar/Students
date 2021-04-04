@@ -16,6 +16,16 @@
   </mat-error>
 </mat-form-field>
 
+<!--<mat-form-field>
+  <mat-label>Datum rojstva</mat-label>
+  <input matInput [formControl]="lastNameControl" [(ngModel)]="student.birthDate" placeholder="Datum rojstva" />
+  <mat-error *ngIf="lastNameControl.hasError('required')">
+    Priimek je obvezen
+  </mat-error>
+</mat-form-field>-->
+
+
+
 <button mat-raised-button color="primary" (click)="save()">Shrani</button>
 
 <button mat-raised-button color="warn" (click)="goBack">Prekliči</button>

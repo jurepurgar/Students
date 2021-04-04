@@ -29,11 +29,15 @@ export class EditStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.student = new Student();
+    this.student.id = 1;
+    this.student.birthDate = new Date(Date.now());
+    this.student.program = 'informatika';
     this.isNew = true;
   }
 
   async save() {
-    // check if already exists
+    // check if already exist
+
     await this.db.add(STORE_NAME, this.student).toPromise();
     console.log('value saved');
   }
