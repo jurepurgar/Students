@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { STORE_NAME } from '../constants';
 import { Student } from '../models';
 
 @Component({
@@ -8,11 +10,16 @@ import { Student } from '../models';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
+  constructor(private db: NgxIndexedDBService) {}
+
   ngOnInit(): void {
-    // this.dataSource = new MatTableDataSource(data); //get data from DB
+    this.db.getAll(STORE_NAME).subscribe(res => {
+      const data = res as Student[];
+      this.dataSource = new MatTableDataSource<Student>(data);
+    });
   }
 
-  displayedColumns: string[] = ['firstName', 'lastName'];
+  displayedColumns: string[] = ['name', 'birthDate', 'program', 'actions'];
   dataSource: MatTableDataSource<Student>;
 
   applyFilter(event: Event) {

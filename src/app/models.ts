@@ -1,4 +1,7 @@
 export class Student {
+  id: number;
   firstName: string;
-  lastname: string;
+  lastName: string;
+  birthDate: Date;
+  program: string;
 }

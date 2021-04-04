@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Student } from '../models';
 import { FormControl, Validators } from '@angular/forms';
+import { STORE_NAME } from '../constants';
 
 @Component({
   selector: 'app-edit-student',
@@ -31,9 +32,10 @@ export class EditStudentComponent implements OnInit {
     this.isNew = true;
   }
 
-  save() {
+  async save() {
     // check if already exists
-    // this.db.add();
+    await this.db.add(STORE_NAME, this.student).toPromise();
+    console.log('value saved');
   }
 
   goBack() {

@@ -41,7 +41,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         store: STORE_NAME,
         storeConfig: { keyPath: 'id', autoIncrement: false },
         storeSchema: [
-          { name: 'firstName', keypath: 'name', options: { unique: false } }
+          { name: 'firstName', keypath: 'firstName', options: { unique: false } },
+          { name: 'lastName', keypath: 'lastName', options: { unique: false } },
+          { name: 'birthDate', keypath: 'birthDate', options: { unique: false } },
+          { name: 'program', keypath: 'program', options: { unique: false } }
         ]
       }]
     })
