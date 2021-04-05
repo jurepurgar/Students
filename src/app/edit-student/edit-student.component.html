@@ -1,31 +1,46 @@
-<h1>{{ isNew ? 'Dodajanje študenta' : 'Urejanje študenta'}} </h1>
+<h3>{{ isNew ? 'Dodajanje študenta' : 'Urejanje študenta'}} </h3>
 
-<mat-form-field>
-  <mat-label>Ime</mat-label>
-  <input matInput [formControl]="firstNameControl" [(ngModel)]="student.firstName" placeholder="Ime" #jajc />
-  <mat-error *ngIf="firstNameControl.hasError('required')">
-    Ime je obvezno
-  </mat-error>
-</mat-form-field>
+<form (ngSubmit)="save()">
+  <div>
 
-<mat-form-field>
-  <mat-label>Priimek</mat-label>
-  <input matInput [formControl]="lastNameControl" [(ngModel)]="student.lastName" placeholder="Priimek" />
-  <mat-error *ngIf="lastNameControl.hasError('required')">
-    Priimek je obvezen
-  </mat-error>
-</mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Ime</mat-label>
+      <input matInput name="firstName" [(ngModel)]="student.firstName" #model="ngModel" required pattern="^[A-ČĆŽŠĐ].[a-zčćžšđ]{1,}$" />
+      <mat-error *ngIf="model.invalid">
+        Ime je obvezno, lahko vsebuje samo črke, ter se mora začeti z veliko začentico.
+      </mat-error>
+    </mat-form-field>
 
-<!--<mat-form-field>
-  <mat-label>Datum rojstva</mat-label>
-  <input matInput [formControl]="lastNameControl" [(ngModel)]="student.birthDate" placeholder="Datum rojstva" />
-  <mat-error *ngIf="lastNameControl.hasError('required')">
-    Priimek je obvezen
-  </mat-error>
-</mat-form-field>-->
+    <mat-form-field appearance="fill">
+      <mat-label>Priimek</mat-label>
+      <input matInput name="lastName" [(ngModel)]="student.lastName" #model="ngModel" required />
+      <mat-error *ngIf="model.invalid">
+        Priimek je obvezen, lahko vsebuje samo črke, ter se mora začeti z veliko začentico.
+      </mat-error>
+    </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Datum rojstva</mat-label>
+      <input matInput name="birthDate" [matDatepicker]="picker" [min]="minBirthDate" [max]="maxBirthDate" [(ngModel)]="student.birthDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Program</mat-label>
+      <mat-select name="program" matInput [(ngModel)]="student.program" #model="ngModel" required>
+        <mat-option *ngFor="let program of programs" [value]="program">
+          {{program}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="model.invalid">
+        Izbira programa je obvezna
+      </mat-error>
+    </mat-form-field>
 
-<button mat-raised-button color="primary" (click)="save()">Shrani</button>
+  </div>
 
-<button mat-raised-button color="warn" (click)="goBack">Prekliči</button>
+  <button mat-raised-button color="primary" type="submit" (click)="save()">Shrani</button>
+  <button mat-raised-button color="warn" (click)="goBack">Prekliči</button>
+
+</form>

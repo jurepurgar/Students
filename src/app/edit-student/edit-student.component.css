@@ -1,0 +1,14 @@
+
+.controls-container {
+  display: flex;
+  justify-items: flex-end;
+  max-width: 400px;
+}
+
+mat-form-field {
+  display: block;
+}
+
+button {
+  margin-right: 0.5em;
+}
