@@ -1,7 +1,7 @@
 <h3>{{ isNew ? 'Dodajanje študenta' : 'Urejanje študenta'}} </h3>
 
 <form (ngSubmit)="save()">
-  <div>
+  <div class="controls-container">
 
     <mat-form-field appearance="fill">
       <mat-label>Ime</mat-label>
@@ -40,7 +40,7 @@
 
   </div>
 
-  <button mat-raised-button color="primary" type="submit" (click)="save()">Shrani</button>
-  <button mat-raised-button color="warn" (click)="goBack">Prekliči</button>
+  <button mat-raised-button color="primary" type="submit">Shrani in zapri</button>
+  <a mat-raised-button color="warn" routerLink="/">Prekliči</a>
 
 </form>

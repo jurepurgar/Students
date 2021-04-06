@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Student } from '../models';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { STORE_NAME } from '../constants';
+import * as uuid from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-student',
@@ -12,7 +12,7 @@ import { STORE_NAME } from '../constants';
 })
 export class EditStudentComponent implements OnInit {
   constructor(
-    private location: Location,
+    private router: Router,
     private db: NgxIndexedDBService) {
   }
 
@@ -24,7 +24,7 @@ export class EditStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.student = new Student();
-    this.student.id = undefined;
+    this.student.id = uuid.v4();
     this.student.birthDate = this.getAgeDate(18);
     this.student.program = this.programs[0];
     this.isNew = true;
@@ -33,11 +33,7 @@ export class EditStudentComponent implements OnInit {
   async save() {
     // check if already exist
     await this.db.add(STORE_NAME, this.student).toPromise();
-    console.log('value saved');
-  }
-
-  goBack() {
-    this.location.back();
+    this.router.navigate(['..']);
   }
 
   private getAgeDate(age: number) {
