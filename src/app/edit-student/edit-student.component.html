@@ -1,6 +1,6 @@
-<h3>{{ isNew ? 'Dodajanje študenta' : 'Urejanje študenta'}} </h3>
+<h2>{{ isNew ? 'Dodajanje študenta' : 'Urejanje študenta'}} </h2>
 
-<form (ngSubmit)="save()">
+<form *ngIf="student" (ngSubmit)="save()">
   <div class="controls-container">
 
     <mat-form-field appearance="fill">

@@ -12,9 +12,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 
@@ -42,6 +44,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatTooltipModule,
+    MatToolbarModule,
 
     NgxIndexedDBModule.forRoot({
       name: 'StudentsDb',
@@ -58,7 +62,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       }]
     })
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'sl-SI' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

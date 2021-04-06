@@ -1,5 +1,10 @@
-.table-container {
+.container {
   width: 700px;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 table {

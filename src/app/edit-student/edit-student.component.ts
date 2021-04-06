@@ -3,7 +3,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Student } from '../models';
 import { STORE_NAME } from '../constants';
 import * as uuid from 'uuid';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-student',
@@ -13,26 +13,35 @@ import { Router } from '@angular/router';
 export class EditStudentComponent implements OnInit {
   constructor(
     private router: Router,
-    private db: NgxIndexedDBService) {
-  }
+    private route: ActivatedRoute,
+    private db: NgxIndexedDBService
+  ) {}
 
   public maxBirthDate = this.getAgeDate(14);
   public minBirthDate = this.getAgeDate(100);
   public student: Student;
   public isNew = false;
-  public programs = ['Informatika', 'Kozmetika'];
+  public programs = ['Informatika', 'Medijska produkcija', 'Gostinstvo in turizem', 'Kozmetika', 'Ekonomist / Računovodja', 'Strojništvo', 'Logistično inženirstvo', 'Gradbeništvo', 'Mehatronika', 'Organizator socijalne mreže', 'Varstvo okolja in komunala'];
 
-  ngOnInit(): void {
-    this.student = new Student();
-    this.student.id = uuid.v4();
-    this.student.birthDate = this.getAgeDate(18);
-    this.student.program = this.programs[0];
-    this.isNew = true;
+  async ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.isNew = id === 'new';
+    if (this.isNew) {
+      this.student = new Student();
+      this.student.id = uuid.v4();
+      this.student.birthDate = this.getAgeDate(18);
+      this.student.program = this.programs[0];
+    } else {
+      this.student = (await this.db.getByID(STORE_NAME, id).toPromise()) as Student;
+    }
   }
 
   async save() {
-    // check if already exist
-    await this.db.add(STORE_NAME, this.student).toPromise();
+    if (this.isNew) {
+      await this.db.add(STORE_NAME, this.student).toPromise();
+    } else {
+      await this.db.update(STORE_NAME, this.student).toPromise();
+    }
     this.router.navigate(['..']);
   }
 

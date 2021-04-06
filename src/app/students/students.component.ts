@@ -10,13 +10,12 @@ import { Student } from '../models';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  constructor(private db: NgxIndexedDBService) {}
+  constructor(
+    private db: NgxIndexedDBService
+  ) {}
 
   ngOnInit(): void {
-    this.db.getAll(STORE_NAME).subscribe(res => {
-      const data = res as Student[];
-      this.dataSource = new MatTableDataSource<Student>(data);
-    });
+    this.reloadStudents();
   }
 
   displayedColumns: string[] = ['name', 'birthDate', 'program', 'actions'];
@@ -25,5 +24,19 @@ export class StudentsComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  removeStudent(id: string) {
+    if (confirm('Ali res želite izbrisati izbran element?')) {
+      this.db.delete(STORE_NAME, id);
+      this.reloadStudents();
+    }
+  }
+
+  private reloadStudents() {
+    this.db.getAll(STORE_NAME).subscribe(res => {
+      const data = res as Student[];
+      this.dataSource = new MatTableDataSource<Student>(data);
+    });
   }
 }
